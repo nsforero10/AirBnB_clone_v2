@@ -13,10 +13,10 @@ class FileStorage:
         if obj is None:
             return
         if obj.id in FileStorage.__objects.keys():
-            del(FileStorage._objects[obj.id])
+            del(FileStorage.__objects[obj.id])
             self.save()
 
-    def all(self):
+    def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls is None:
             return FileStorage.__objects
