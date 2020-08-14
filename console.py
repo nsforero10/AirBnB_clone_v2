@@ -130,9 +130,9 @@ class HBNBCommand(cmd.Cmd):
             value = args[nParam].split('=')[1].replace('_', ' ')
         
             if value[0] == '"':
-                val = val.strip('"')
+                value = value.strip('"')
             else:
-                val = eval(val)
+                value = eval(value)
 
             setattr(new_instance, key, value)
 
