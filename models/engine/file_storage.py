@@ -9,23 +9,17 @@ class FileStorage:
     __file_path = 'file.json'
     __objects = {}
 
-    def delete(self, obj=None):
-        """ Deletes an object from the dictionary """
-        if obj is not None:
-            sea = obj.__class__.__name__ + "." + obj.id
-            if sea in self.__objects:
-                del self.__objects[sea]
-        self.save()
-
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls is not None:
-            new_all = {}
-            for key, value in FileStorage.__objects.items():
-                if cls == value.__class__ or type(value) == cls:
-                    new_all[key] = value
-            return new_all
-        return FileStorage.__objects
+            class_dict = {}
+            for key, val in self.__objects.items():
+                class_name = key.split('.')[0]
+                if class_name == cls.__name__:
+                    class_dict[key] = val
+            return class_dict
+        else:
+            return FileStorage.__objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -51,15 +45,20 @@ class FileStorage:
         from models.review import Review
 
         classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review
+        }
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+    def delete(self, obj=None):
+        """ Delete object """
+        if obj is not None:
+            del self.__objects['{}.{}'.format(obj.__class__.__name__, obj.id)]

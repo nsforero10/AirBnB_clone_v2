@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
-from sqlalchemy import Column, Integer, String, ForeignKey, Table
-from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base
+import sqlalchemy
+from sqlalchemy import Column, String
+from os import getenv
 from sqlalchemy.orm import relationship
 from models.place import place_amenity
-from os import getenv
 
 
 class Amenity(BaseModel, Base):
