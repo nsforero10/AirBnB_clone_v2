@@ -5,7 +5,7 @@ from datetime import datetime
 import models
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime
 
 Base = declarative_base()
 
@@ -20,6 +20,7 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
         if not kwargs:
+            from models import storage
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
@@ -63,5 +64,5 @@ class BaseModel:
         return dictionary
 
     def delete(self):
-        """Deletes the current instance from the storage models.storage"""
+        """ Deletes the current instance from the storage """
         models.storage.delete(self)

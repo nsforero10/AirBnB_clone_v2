@@ -7,12 +7,17 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+from os import getenv
 from models.engine.file_storage import FileStorage
 from models.engine.db_storage import DBStorage
 import os
 
-ty_sto = os.getenv('HBNB_TYPE_STORAGE')
-if ty_sto == 'db':
+classes = {"User": User, "BaseModel": BaseModel,
+           "Place": Place, "State": State,
+           "City": City, "Amenity": Amenity,
+           "Review": Review}
+
+if getenv('HBNB_TYPE_STORAGE') == 'db':
     from models.engine.db_storage import DBStorage
     storage = DBStorage()
 else:
