@@ -39,7 +39,8 @@ def is_num(num):
 @app.route('/number_template/<int:num>', strict_slashes=False)
 def number_template(num):
     ''' Renders 5-number.html '''
-    return render_template('5-number.html', val=num)
+    if isinstance(n, int):
+        return render_template('5-number.html', n=n)
 
 
 if __name__ == '__main__':
