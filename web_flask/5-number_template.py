@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 ''' script that starts a Flask web application '''
-from flask import Flask
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
@@ -39,7 +39,7 @@ def is_num(num):
 @app.route('/number_template/<int:num>', strict_slashes=False)
 def number_template(num):
     ''' Renders 5-number.html '''
-    return render_template('5-number.html'. val=num)
+    return render_template('5-number.html', val=num)
 
 
 if __name__ == '__main__':
