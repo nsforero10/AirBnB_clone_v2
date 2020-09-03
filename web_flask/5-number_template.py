@@ -36,6 +36,7 @@ def is_num(num):
     ''' Is num? '''
     return '{:d} is a number'.format(num)
 
+
 @app.route('/number_template/<int:num>', strict_slashes=False)
 def number_template(num):
     ''' Renders 5-number.html '''
